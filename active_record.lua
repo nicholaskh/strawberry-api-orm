@@ -16,7 +16,7 @@ function ActiveRecord:new()
 end
 
 function ActiveRecord:list()
-    return httpclient:
+    --return httpclient:
 end
 
 return ActiveRecord
