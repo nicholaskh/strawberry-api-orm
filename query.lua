@@ -1,6 +1,6 @@
 local httpclient = require("framework.libs.httpclient"):new()
 local QueryBuilder = require "framework.api.query_builder"
-local cjson = require("cjson").new()
+local cjson = require "cjson.safe"
 
 local function tappend(t, v) t[#t+1] = v end
 
@@ -51,7 +51,7 @@ function Query:all()
         method = "GET"
     end
     method = string.lower(method)
-    local url = self.query_builder:build(self, self.model_class.apis.list)
+    local url = self.query_builder:build(self, self.model_class.api_list)
     return populate(self, cjson.decode(httpclient[method](httpclient, url)))
 end
 
@@ -61,7 +61,7 @@ function Query:one()
         method = "GET"
     end
     method = string.lower(method)
-    local url = self.query_builder:build(self, self.model_class.apis.detail)
+    local url = self.query_builder:build(self, self.model_class.api_detail)
     return populate(self, {cjson.decode(httpclient[method](httpclient, url))})[1]
 end
 
@@ -72,7 +72,7 @@ function Query:update(key, attributes)
     end
     method = string.lower(method)
     self.p_where[self.model_class.primary_key] = key
-    local url = self.query_builder:build(self, self.model_class.apis.update)
+    local url = self.query_builder:build(self, self.model_class.api_update)
     return httpclient[method](httpclient, url, attributes)
 end
 
@@ -82,7 +82,7 @@ function Query:create(attributes)
         method = "POST"
     end
     method = string.lower(method)
-    local url = self.query_builder:build(self, self.model_class.apis.create)
+    local url = self.query_builder:build(self, self.model_class.api_create)
     return httpclient[method](httpclient, url, attributes)
 end
 

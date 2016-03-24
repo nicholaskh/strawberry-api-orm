@@ -2,13 +2,13 @@ local Query = require "framework.api.query"
 
 local ActiveRecord = {
     domain = "",
-    apis = {
-        list = "",
-        detail = "",
-        create = "",
-        update = "",
-        delete = "",
-    },
+
+    api_list = "",
+    api_detail = "",
+    api_create = "",
+    api_update = "",
+    api_delete = "",
+
     method_list = "GET",
     method_detail = "GET",
     method_create = "POST",
